@@ -20,23 +20,32 @@ class FizzBuzz {
   static convert(value) {
     if (value === 0) return "0";
 
-    let returnValue = "";
-    if (value%3 === 0 && value%5 === 0) returnValue = "FizzBuzz";
-    else if (value%3 === 0) returnValue = "Fizz";
-    else if (value%5 === 0) returnValue = "Buzz";
-
-    if (value.toString().includes("3")) {
-      returnValue += "Fizz";
-    }
-
-    if (value.toString().includes("5")) {
-      returnValue += "Buzz";
-    }
+    let returnValue = this.multiple(value);
+    returnValue = this.contains(value, returnValue);
 
     return returnValue ? returnValue : value.toString();
   }
   catch(e) {
     return "Invalid"
+  }
+
+  static multiple(value) {
+    if (value%3 === 0 && value%5 === 0) return "FizzBuzz";
+    else if (value%3 === 0) return "Fizz";
+    else if (value%5 === 0) return "Buzz";
+    else return "";
+  }
+
+  static contains(value, currentString) {
+    if (value.toString().includes("3")) {
+      return currentString += "Fizz";
+    }
+
+    if (value.toString().includes("5")) {
+      return currentString += "Buzz";
+    }
+
+    return currentString;
   }
 }
 
