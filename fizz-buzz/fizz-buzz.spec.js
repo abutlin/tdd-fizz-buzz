@@ -18,9 +18,20 @@
  */
 class FizzBuzz {
   static convert(value) {
-    if (value === 3) return "Fizz";
+    let returnValue = "";
+    if (value%3 === 0 && value%5 === 0) returnValue = "FizzBuzz";
+    else if (value%3 === 0) returnValue = "Fizz";
+    else if (value%5 === 0) returnValue = "Buzz";
 
-    return value.toString();
+    if (value.toString().includes("3")) {
+      returnValue += "Fizz";
+    }
+
+    if (value.toString().includes("5")) {
+      returnValue += "Buzz";
+    }
+
+    return returnValue ? returnValue : value.toString();
   }
 }
 
@@ -29,8 +40,19 @@ describe("FizzBuzz", () => {
     { value: 1, expectation: "1" },
     { value: 2, expectation: "2" },
     { value: 4, expectation: "4" },
-    { value: 3, expectation: "Fizz" },
+    { value: 7, expectation: "7" },
+    { value: 8, expectation: "8" },
+    { value: 11, expectation: "11" },
+    { value: 3, expectation: "FizzFizz" },
     { value: 6, expectation: "Fizz" },
+    { value: 9, expectation: "Fizz" },
+    { value: 12, expectation: "Fizz" },
+    { value: 10, expectation: "Buzz" },
+    { value: 15, expectation: "FizzBuzzBuzz" },
+    { value: 13, expectation: "Fizz" },
+    { value: 23, expectation: "Fizz" },
+    { value: 30, expectation: "FizzBuzzFizz"},
+    { value: 55, expectation: "BuzzBuzz"}
   ].forEach(({ value, expectation }) => {
     it(`should convert ${value} to ${expectation}`, () => {
       expect(FizzBuzz.convert(value)).toBe(expectation);
