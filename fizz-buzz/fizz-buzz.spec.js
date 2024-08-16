@@ -18,6 +18,8 @@
  */
 class FizzBuzz {
   static convert(value) {
+    if (value === 0) return "0";
+
     let returnValue = "";
     if (value%3 === 0 && value%5 === 0) returnValue = "FizzBuzz";
     else if (value%3 === 0) returnValue = "Fizz";
@@ -33,10 +35,15 @@ class FizzBuzz {
 
     return returnValue ? returnValue : value.toString();
   }
+  catch(e) {
+    return "Invalid"
+  }
 }
 
 describe("FizzBuzz", () => {
   [
+    { value: "Invalid", expectation: "Invalid"},
+    { value: 0, expectation: "0"},
     { value: 1, expectation: "1" },
     { value: 2, expectation: "2" },
     { value: 4, expectation: "4" },
