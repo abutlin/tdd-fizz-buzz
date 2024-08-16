@@ -20,8 +20,12 @@ class FizzBuzz {
   static convert(value) {
     if (value === 0) return "0";
 
-    let returnValue = this.multiple(value);
-    returnValue = this.contains(value, returnValue);
+    let returnValue = "";
+    if (this.isMultipleOf3(value)) returnValue = "Fizz";
+    if (this.isMultipleOf5(value)) returnValue = "Buzz";
+    if (this.isMultipleOf3And5(value)) returnValue = "FizzBuzz";
+    if (this.contains3(value)) returnValue += "Fizz";
+    if (this.contains5(value)) returnValue += "Buzz";
 
     return returnValue ? returnValue : value.toString();
   }
@@ -29,24 +33,38 @@ class FizzBuzz {
     return "Invalid"
   }
 
-  static multiple(value) {
-    if (value%3 === 0 && value%5 === 0) return "FizzBuzz";
-    else if (value%3 === 0) return "Fizz";
-    else if (value%5 === 0) return "Buzz";
-    else return "";
+  static isMultipleOf3(value) {
+    if (value%3 === 0) return true;
   }
 
-  static contains(value, currentString) {
-    if (value.toString().includes("3")) {
-      return currentString += "Fizz";
-    }
-
-    if (value.toString().includes("5")) {
-      return currentString += "Buzz";
-    }
-
-    return currentString;
+  static isMultipleOf5(value) {
+    if (value%5 === 0) return true;
   }
+
+  static isMultipleOf3And5(value) {
+    if (value%3 === 0 && value%5 === 0) return true;
+  }
+
+  static contains3(value) {
+    if (value.toString().includes("3")) return true;
+  }
+
+  static contains5(value) {
+    if (value.toString().includes("5")) return true;
+  }
+
+  // static multiple(value) {
+  //   if (value%3 === 0 && value%5 === 0) return "FizzBuzz";
+  //   else if (value%3 === 0) return "Fizz";
+  //   else if (value%5 === 0) return "Buzz";
+  //   else return "";
+  // }
+
+  // static contains(value, currentString) {
+  //   if (value.toString().includes("3")) currentString += "Fizz";
+  //   if (value.toString().includes("5")) currentString += "Buzz";
+  //   return currentString;
+  // }
 }
 
 describe("FizzBuzz", () => {
@@ -68,7 +86,8 @@ describe("FizzBuzz", () => {
     { value: 13, expectation: "Fizz" },
     { value: 23, expectation: "Fizz" },
     { value: 30, expectation: "FizzBuzzFizz"},
-    { value: 55, expectation: "BuzzBuzz"}
+    { value: 55, expectation: "BuzzBuzz"},
+    { value: 135, expectation: "FizzBuzzFizzBuzz"}
   ].forEach(({ value, expectation }) => {
     it(`should convert ${value} to ${expectation}`, () => {
       expect(FizzBuzz.convert(value)).toBe(expectation);
